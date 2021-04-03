@@ -6,7 +6,7 @@
 ** Core functions implementation: random number generation
 */
 
-
+#include <time.h>
 #include "hge_impl.h"
 
 
@@ -14,7 +14,7 @@ unsigned int g_seed=0;
 
 void CALL HGE_Impl::Random_Seed(int seed)
 {
-	if(!seed) g_seed=timeGetTime();
+	if(!seed) g_seed=(unsigned int)clock();
 	else g_seed=seed;
 }
 
