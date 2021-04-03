@@ -34,11 +34,24 @@ set ( HGE_HDR
 
 add_library ( hge STATIC
   ${HGE_SRC}
+  ${ZLIB_SRC}
 )
 
 target_include_directories ( hge
   PRIVATE
     ${DXSDK_PATH}/include
+)
+
+if ( NOT ( "${CMAKE_GENERATOR_PLATFORM}" STREQUAL "Win32" ) )
+  set ( DX9LIB_PATH ${DXSDK_PATH}/lib/x64 )
+else ()
+  set ( DX9LIB_PATH ${DXSDK_PATH}/lib/x86 )
+endif ()
+
+target_link_libraries ( hge 
+  INTERFACE
+    ${DX9LIB_PATH}/d3d9.lib
+    ${DX9LIB_PATH}/d3dx9.lib
 )
 
 source_group ( hge FILES ${HGE_SRC} ${HGE_HDR} )
